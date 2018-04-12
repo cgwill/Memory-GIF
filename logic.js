@@ -53,14 +53,16 @@ function createImages(i,url){
 // new Round
 function showImage(e){
   e.style.backgroundColor = "blue";
-  //alert(e.id);
-  alert(memoryArray[e.id].pair_id);
+  console.log("c_left: " + String(players[game.activePlayer].getClicksLeft()) + " card_id: " + String(memoryArray[e.id].card_id) + " pair_id: " + String(memoryArray[e.id].pair_id));
+  //alert(memoryArray[e.id].pair_id);
   var clicksLeft = players[game.activePlayer].getClicksLeft();
   if(clicksLeft > 0){
     players[game.activePlayer].updateClicksLeft();
+    
     //alert(clicksLeft);
   }
   else{
+    e.style.visibility = "hidden";
     //e.style.backgroundColor = "yellow";
   }
 
@@ -147,7 +149,7 @@ function createGrid(){
 
 
     if(players[game.activePlayer].getClicksLeft() === 0){
-      $("#playArea").children().css("background-color","yellow");
+      //$("#playArea").children().css("background-color","yellow");
       game.nextPlayer();
       //alert(players[game.activePlayer]);
       players[game.activePlayer].setClicksLeft(2);
