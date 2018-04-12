@@ -39,6 +39,18 @@ function startGame(){
   }
 }
 
+function createImages(gridSize,url){
+  var imagesTest = [gridSize];
+  var counter = 0;
+  for (var i = 0; i < gridSize; i++) {
+      var card_id = i;
+      var pair_id = Math.floor(i * 0.5);
+      //console.log(pair_id);
+      imagesTest[i] = new MemoryImage(card_id,pair_id,url);
+  }
+  console.log(imagesTest);
+}
+
 // new Round
 function showImage(e){
   e.style.backgroundColor = "blue";
@@ -78,10 +90,11 @@ function searchForImages(startIndex){
         results[i] = data.items[i].link;
         //console.log(data.items[i].link);
       }
+      console.log(results);
+      return results;
     }
   });
-  console.log(results);
-  return results;
+
 }
 
 
@@ -96,8 +109,6 @@ function createGrid(){
   // Setup -> Delete previous images
   $("#playArea").empty();
   // Fill with new Images
-  var linkedImages = 2;
-  var counter = 0;
   for (i=0; i<gridSize; i++){
     var image = document.createElement("div");
     image.className = "image";
@@ -177,4 +188,23 @@ class Player{
   getScore(){
     return this.score;
   }
+}
+
+
+class MemoryImage {
+
+  constructor(card_id, pair_id, url) {
+    this.card_id = card_id;
+    this.pair_id = pair_id;
+    this.url = url;
+  }
+
+  getCardId(){
+    return this.card_id;
+  }
+
+  getPairId(){
+    return this.pair_id;
+  }
+
 }
