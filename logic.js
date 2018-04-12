@@ -60,18 +60,28 @@ function updateDisplayGameProgress(){
   document.getElementById("currentRound").innerHTML = game.currentRound + 1;
 }
 
-function searchForImages(){
+function searchForImages(startIndex){
 
-  
-  var url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCQcUbvvePw13aqQhlFm_4SAa7qToWMTB4&cx=010254913791562954874:fjogwmwaykw&q=cat"
+  var searchType = "&searchType=image";
+  var start = "&start=" + String(startIndex);
+  var input = document.getElementById("searchterm").value;
+  var url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCQcUbvvePw13aqQhlFm_4SAa7qToWMTB4&cx=010254913791562954874:fjogwmwaykw&q=" + input + searchType + start;
+  var results =[];
 
   jQuery.ajax({
     url: url,
     method: "GET",
     success: function(data){
-      console.log(data);
+      //console.log(data);
+      //console.log(data.items);
+      for (var i = 0; i < data.items.length; i++) {
+        results[i] = data.items[i].link;
+        //console.log(data.items[i].link);
+      }
     }
   });
+  console.log(results);
+  return results;
 }
 
 
