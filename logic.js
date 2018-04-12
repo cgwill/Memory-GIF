@@ -5,6 +5,7 @@ var stepSize = 2;
 var optionsGridSize = 100;
 var game;
 var players = [];
+var urlArray = ["https://steemit-production-imageproxy-thumbnail.s3.amazonaws.com/U5dr76Z7jgENR79hQHHLM3fCFPQrg1C_1680x8400","https://images.pexels.com/photos/126407/pexels-photo-126407.jpeg?auto=compress&cs=tinysrgb&h=350"];
 
 // Create Dropdown Menu for Grid Size
 var i;
@@ -42,7 +43,7 @@ function startGame(){
 function createImages(i,url){
     var card_id = i;
     var pair_id = Math.floor(i * 0.5);
-    var memory = new MemoryImage(card_id,pair_id,url);
+    var memory = new MemoryImage(card_id,pair_id,url[pair_id]);
 
     return memory;
   }
@@ -52,6 +53,7 @@ function createImages(i,url){
 // new Round
 function showImage(e){
   e.style.backgroundColor = "blue";
+  //alert(e.id);
   alert(memoryArray[e.id].pair_id);
   var clicksLeft = players[game.activePlayer].getClicksLeft();
   if(clicksLeft > 0){
@@ -106,8 +108,9 @@ function createGrid(){
   // Fill with new Images
   for (i=0; i<gridSize; i++){
     var image = document.createElement("div");
-    memoryArray[i] = createImages(i,"test");
-
+    memoryArray[i] = createImages(i,urlArray);
+    image.style.backgroundImage = "url('" + memoryArray[i].url + "')";
+    image.style.backgroundSize = "cover";
     // Debugging
     var debugTextCardId = document.createElement("h2");
     debugTextCardId.innerHTML = memoryArray[i].card_id;
@@ -131,7 +134,7 @@ function createGrid(){
   imagesArray.forEach(function(element){
     container.appendChild(element);
   });
-  
+
   // Add the click event
   container.addEventListener("click", function(e){
 
