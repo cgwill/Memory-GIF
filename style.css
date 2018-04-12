@@ -1,0 +1,13 @@
+div.image {
+    height: 100px;
+    width: 100px;
+    background-color: yellow;
+    margin: 10px;
+    float: left;
+}
+
+div.image:hover {
+    background-color: red;
+    margin: 10px;
+    float: left;
+}
