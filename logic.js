@@ -1,9 +1,11 @@
+
 // Variables
 var listSizeGrid = document.getElementById("listSizeGrid");
 var stepSize = 2;
 var optionsGridSize = 100;
 var game;
 var players = [];
+
 // Create Dropdown Menu for Grid Size
 var i;
 for (i=0; i<(optionsGridSize * stepSize); i = i + stepSize) {
@@ -48,7 +50,7 @@ function showImage(e){
     //alert(clicksLeft);
   }
   else{
-    e.style.backgroundColor = "yellow";
+    //e.style.backgroundColor = "yellow";
   }
 
 }
@@ -57,6 +59,21 @@ function updateDisplayGameProgress(){
   document.getElementById("activePlayer").innerHTML = game.activePlayer + 1;
   document.getElementById("currentRound").innerHTML = game.currentRound + 1;
 }
+
+function searchForImages(){
+
+  
+  var url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCQcUbvvePw13aqQhlFm_4SAa7qToWMTB4&cx=010254913791562954874:fjogwmwaykw&q=cat"
+
+  jQuery.ajax({
+    url: url,
+    method: "GET",
+    success: function(data){
+      console.log(data);
+    }
+  });
+}
+
 
 // Create the Grid
 function createGrid(){
@@ -79,6 +96,7 @@ function createGrid(){
     image.id = image_id;
     container.appendChild(image);
   }
+  // Add the click event
   container.addEventListener("click", function(e){
 
     showImage(e.target);
@@ -95,6 +113,8 @@ function createGrid(){
 
   });
 }
+
+// Classes
 
 class GameState{
 
