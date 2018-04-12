@@ -39,23 +39,20 @@ function startGame(){
   }
 }
 
-function createImages(gridSize,url){
-  var imagesTest = [gridSize];
-  var counter = 0;
-  for (var i = 0; i < gridSize; i++) {
-      var card_id = i;
-      var pair_id = Math.floor(i * 0.5);
-      //console.log(pair_id);
-      imagesTest[i] = new MemoryImage(card_id,pair_id,url);
+function createImages(i,url){
+    var card_id = i;
+    var pair_id = Math.floor(i * 0.5);
+    var memory = new MemoryImage(card_id,pair_id,url);
+
+    return memory;
   }
-  console.log(imagesTest);
-}
+
+
 
 // new Round
 function showImage(e){
   e.style.backgroundColor = "blue";
-  //alert(game.activePlayer);
-  //alert(players[game.activePlayer]);
+  alert(memoryArray[e.id].pair_id);
   var clicksLeft = players[game.activePlayer].getClicksLeft();
   if(clicksLeft > 0){
     players[game.activePlayer].updateClicksLeft();
@@ -84,13 +81,9 @@ function searchForImages(startIndex){
     url: url,
     method: "GET",
     success: function(data){
-      //console.log(data);
-      //console.log(data.items);
       for (var i = 0; i < data.items.length; i++) {
         results[i] = data.items[i].link;
-        //console.log(data.items[i].link);
       }
-      console.log(results);
       return results;
     }
   });
@@ -104,6 +97,8 @@ function createGrid(){
   var dropdown = document.getElementById("listSizeGrid");
   var gridSize = dropdown.options[dropdown.selectedIndex].value;
   var container = document.getElementById("playArea");
+  memoryArray = [gridSize];
+  imagesArray = [gridSize];
   var i;
   img_pair_id = [gridSize/2] // length is half of the amount of the images in the grid -> gridSize
   // Setup -> Delete previous images
@@ -111,16 +106,42 @@ function createGrid(){
   // Fill with new Images
   for (i=0; i<gridSize; i++){
     var image = document.createElement("div");
+    memoryArray[i] = createImages(i,"test");
+
+    // Debugging
+    var debugTextCardId = document.createElement("h2");
+    debugTextCardId.innerHTML = memoryArray[i].card_id;
+    var debugTextPairId = document.createElement("h2");
+    debugTextPairId.innerHTML = memoryArray[i].pair_id;
+    image.appendChild(debugTextCardId);
+    image.appendChild(debugTextPairId);
+    //
+
     image.className = "image";
 
-    var image_id = "image_" + String(i);
+    var image_id = String(i);
     image.id = image_id;
-    container.appendChild(image);
+    imagesArray[i] = image;
+
+    //container.appendChild(image);
   }
+
+  shuffle(imagesArray);
+
+  imagesArray.forEach(function(element){
+    container.appendChild(element);
+  });
+  
   // Add the click event
   container.addEventListener("click", function(e){
 
-    showImage(e.target);
+
+    if (e.target.tagName == "DIV") {
+      showImage(e.target);
+    }
+
+
+
 
     if(players[game.activePlayer].getClicksLeft() === 0){
       $("#playArea").children().css("background-color","yellow");
@@ -133,6 +154,25 @@ function createGrid(){
 
 
   });
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
 
 // Classes
