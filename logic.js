@@ -5,7 +5,12 @@ var stepSize = 2;
 var optionsGridSize = 100;
 var game;
 var players = [];
-var urlArray = ["https://steemit-production-imageproxy-thumbnail.s3.amazonaws.com/U5dr76Z7jgENR79hQHHLM3fCFPQrg1C_1680x8400","https://images.pexels.com/photos/126407/pexels-photo-126407.jpeg?auto=compress&cs=tinysrgb&h=350"];
+var urlArray = ["https://steemit-production-imageproxy-thumbnail.s3.amazonaws.com/U5dr76Z7jgENR79hQHHLM3fCFPQrg1C_1680x8400",
+"https://images.pexels.com/photos/126407/pexels-photo-126407.jpeg?auto=compress&cs=tinysrgb&h=350",
+"https://metrouk2.files.wordpress.com/2017/11/capture16.png?w=748&h=706&crop=1",
+"http://r.ddmcdn.com/s_f/o_1/cx_0/cy_157/cw_1327/ch_1327/w_720/APL/uploads/2013/01/smart-cat-article.jpg"];
+var pair_id_last_checked;
+var card_id_last_checked;
 
 // Create Dropdown Menu for Grid Size
 var i;
@@ -52,20 +57,41 @@ function createImages(i,url){
 
 // new Round
 function showImage(e){
-  e.style.backgroundColor = "blue";
-  console.log("c_left: " + String(players[game.activePlayer].getClicksLeft()) + " card_id: " + String(memoryArray[e.id].card_id) + " pair_id: " + String(memoryArray[e.id].pair_id));
+  //e.style.backgroundColor = "blue";
   //alert(memoryArray[e.id].pair_id);
   var clicksLeft = players[game.activePlayer].getClicksLeft();
-  if(clicksLeft > 0){
+  e.style.backgroundImage = "url('" + memoryArray[e.id].url + "')";
+  e.style.backgroundSize = "cover";
+  if(clicksLeft == 2){
     players[game.activePlayer].updateClicksLeft();
-    
+    pair_id_last_checked = memoryArray[e.id].pair_id;
+    card_id_last_checked = e.id;
     //alert(clicksLeft);
   }
-  else{
-    e.style.visibility = "hidden";
-    //e.style.backgroundColor = "yellow";
+  else if (clicksLeft == 1) {
+    var lastimage = document.getElementById(card_id_last_checked);
+    card_id_last_checked = e.id;
+    if (pair_id_last_checked == memoryArray[e.id].pair_id && card_id_last_checked != e.id) {
+      players[game.activePlayer].updateClicksLeft();
+      setInterval(function(){
+
+        e.style.visibility = "hidden";
+        lastimage.style.visibility = "hidden";
+
+      }, 1000);
+
+    }
+    else {
+      setInterval(function(){
+
+      e.style.backgroundImage = "none";
+      lastimage.style.backgroundImage = "none";
+
+      }, 1000);
+    }
   }
 
+  //console.log("c_left: " + String(players[game.activePlayer].getClicksLeft()) + " card_id: " + String(memoryArray[e.id].card_id) + " pair_id: " + String(memoryArray[e.id].pair_id));
 }
 
 function updateDisplayGameProgress(){
@@ -111,8 +137,8 @@ function createGrid(){
   for (i=0; i<gridSize; i++){
     var image = document.createElement("div");
     memoryArray[i] = createImages(i,urlArray);
-    image.style.backgroundImage = "url('" + memoryArray[i].url + "')";
-    image.style.backgroundSize = "cover";
+    //image.style.backgroundImage = "url('" + memoryArray[i].url + "')";
+    //image.style.backgroundSize = "cover";
     // Debugging
     var debugTextCardId = document.createElement("h2");
     debugTextCardId.innerHTML = memoryArray[i].card_id;
@@ -146,7 +172,11 @@ function createGrid(){
     }
 
 
+    setInterval(function(){
 
+
+
+    }, 1000);
 
     if(players[game.activePlayer].getClicksLeft() === 0){
       //$("#playArea").children().css("background-color","yellow");
