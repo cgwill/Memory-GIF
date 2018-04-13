@@ -39,6 +39,7 @@ function startGame(){
     }
     //Display Game State in the Progress Window
     updateDisplayGameProgress();
+    deleteScoreboard();
     initScoreboard();
   }
 }
@@ -50,6 +51,10 @@ function createImages(i,url){
 
     return memory;
   }
+
+function deleteScoreboard(){
+  $("#tbody_scoreboard").empty();
+}
 
 function initScoreboard(){
 
@@ -99,6 +104,7 @@ function showImage(e){
           e.style.visibility = "hidden";
           lastimage.style.visibility = "hidden";
         }, 1000);
+        players[game.activePlayer].score++;
       }
       //NICHT das richtige Pair gefunden
       else {
@@ -198,6 +204,8 @@ function createGrid(){
       //alert(players[game.activePlayer]);
       players[game.activePlayer].setClicksLeft(2);
       updateDisplayGameProgress();
+      deleteScoreboard();
+      initScoreboard();
     }
 
   });
