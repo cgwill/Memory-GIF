@@ -93,6 +93,7 @@ function showImage(e){
     if (clicksLeft == 2) {
       // Die last pair_id updaten
       pair_id_last_checked = memoryArray[e.id].pair_id;
+      players[game.activePlayer].updateClicksLeft();
     }
     // Noch EINEN click übrig
     else {
@@ -105,6 +106,8 @@ function showImage(e){
           lastimage.style.visibility = "hidden";
         }, 1000);
         players[game.activePlayer].score++;
+        //players[game.activePlayer].updateClicksLeft();
+        players[game.activePlayer].setClicksLeft(2);
       }
       //NICHT das richtige Pair gefunden
       else {
@@ -112,12 +115,17 @@ function showImage(e){
           e.style.backgroundImage = "none";
           lastimage.style.backgroundImage = "none";
         }, 1000);
+        players[game.activePlayer].updateClicksLeft();
+        game.nextPlayer();
       }
     }
-    // Einen Click abziehen
-    players[game.activePlayer].updateClicksLeft();
+
     // Update die letzte gedrückte Karte
     card_id_last_checked = e.id;
+    // Update the UI
+    updateDisplayGameProgress();
+    deleteScoreboard();
+    initScoreboard();
   }
 }
 
@@ -196,16 +204,6 @@ function createGrid(){
 
     if (e.target.tagName == "DIV") {
       showImage(e.target);
-    }
-
-    if(players[game.activePlayer].getClicksLeft() === 0){
-      //$("#playArea").children().css("background-color","yellow");
-      game.nextPlayer();
-      //alert(players[game.activePlayer]);
-      players[game.activePlayer].setClicksLeft(2);
-      updateDisplayGameProgress();
-      deleteScoreboard();
-      initScoreboard();
     }
 
   });
