@@ -57,41 +57,42 @@ function createImages(i,url){
 
 // new Round
 function showImage(e){
-  //e.style.backgroundColor = "blue";
-  //alert(memoryArray[e.id].pair_id);
+  // Wieviele Clicks hat der Spieler noch?
   var clicksLeft = players[game.activePlayer].getClicksLeft();
-  e.style.backgroundImage = "url('" + memoryArray[e.id].url + "')";
-  e.style.backgroundSize = "cover";
-  if(clicksLeft == 2){
-    players[game.activePlayer].updateClicksLeft();
-    pair_id_last_checked = memoryArray[e.id].pair_id;
-    card_id_last_checked = e.id;
-    //alert(clicksLeft);
-  }
-  else if (clicksLeft == 1) {
-    var lastimage = document.getElementById(card_id_last_checked);
-    card_id_last_checked = e.id;
-    if (pair_id_last_checked == memoryArray[e.id].pair_id && card_id_last_checked != e.id) {
-      players[game.activePlayer].updateClicksLeft();
-      setInterval(function(){
-
-        e.style.visibility = "hidden";
-        lastimage.style.visibility = "hidden";
-
-      }, 1000);
-
+  // Damit Karte nicht doppelt gedrückt werden kann
+  if (e.id != card_id_last_checked || (e.id == card_id_last_checked && clicksLeft == 2) ) {
+    // Die Karte aufdecken
+    e.style.backgroundImage = "url('" + memoryArray[e.id].url + "')";
+    e.style.backgroundSize = "cover";
+    // Noch beide Clicks übrig?
+    if (clicksLeft == 2) {
+      // Die last pair_id updaten
+      pair_id_last_checked = memoryArray[e.id].pair_id;
     }
+    // Noch EINEN click übrig
     else {
-      setInterval(function(){
-
-      e.style.backgroundImage = "none";
-      lastimage.style.backgroundImage = "none";
-
-      }, 1000);
+      var lastimage = document.getElementById(card_id_last_checked);
+      //Das richtige Pair gefunden
+      if (pair_id_last_checked == memoryArray[e.id].pair_id && card_id_last_checked != e.id) {
+        // Delay von 1 sekunde bevor die Karten verschwinden
+        setTimeout(function(){
+          e.style.visibility = "hidden";
+          lastimage.style.visibility = "hidden";
+        }, 1000);
+      }
+      //NICHT das richtige Pair gefunden
+      else {
+        setTimeout(function(){
+          e.style.backgroundImage = "none";
+          lastimage.style.backgroundImage = "none";
+        }, 1000);
+      }
     }
+    // Einen Click abziehen
+    players[game.activePlayer].updateClicksLeft();
+    // Update die letzte gedrückte Karte
+    card_id_last_checked = e.id;
   }
-
-  //console.log("c_left: " + String(players[game.activePlayer].getClicksLeft()) + " card_id: " + String(memoryArray[e.id].card_id) + " pair_id: " + String(memoryArray[e.id].pair_id));
 }
 
 function updateDisplayGameProgress(){
@@ -166,17 +167,9 @@ function createGrid(){
   // Add the click event
   container.addEventListener("click", function(e){
 
-
     if (e.target.tagName == "DIV") {
       showImage(e.target);
     }
-
-
-    setInterval(function(){
-
-
-
-    }, 1000);
 
     if(players[game.activePlayer].getClicksLeft() === 0){
       //$("#playArea").children().css("background-color","yellow");
@@ -184,9 +177,7 @@ function createGrid(){
       //alert(players[game.activePlayer]);
       players[game.activePlayer].setClicksLeft(2);
       updateDisplayGameProgress();
-
     }
-
 
   });
 }
