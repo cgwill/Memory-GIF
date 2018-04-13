@@ -26,22 +26,20 @@ function startGame(){
   // Check if a Grid has been created
   createGrid();
   if(document.getElementById("playArea").children.length === 0){
-
     alert("please select grid size");
   }
   else{
-    //alert("kann losgehen");
-    game = new GameState();
+    // Game can be created
     var i;
     var dd_players = document.getElementById("players");
     var amountPlayers = dd_players.options[dd_players.selectedIndex].value;
+    game = new GameState(amountPlayers);
     for (i=0; i<amountPlayers; i++){
       players[i] = new Player(i);
-      //alert(players[i].id + 1);
     }
     //Display Game State in the Progress Window
     updateDisplayGameProgress();
-    //alert(game.activePlayer);
+    initScoreboard();
   }
 }
 
@@ -53,7 +51,29 @@ function createImages(i,url){
     return memory;
   }
 
+function initScoreboard(){
 
+  var scoreboard = document.getElementById("tbody_scoreboard");
+  for (var i = 0; i < game.amountPlayer; i++) {
+
+    var row = document.createElement("tr");
+    //var place = document.createElement("td");
+    var player = document.createElement("td");
+    var score = document.createElement("td");
+
+    //place.innerHTML = i + 1;
+    player.innerHTML = "Player " + String(players[i].id + 1);
+    score.innerHTML = String(players[i].score);
+
+    //row.appendChild(place);
+    row.appendChild(player);
+    row.appendChild(score);
+
+    scoreboard.appendChild(row);
+
+  }
+
+}
 
 // new Round
 function showImage(e){
@@ -98,6 +118,7 @@ function showImage(e){
 function updateDisplayGameProgress(){
   document.getElementById("activePlayer").innerHTML = game.activePlayer + 1;
   document.getElementById("currentRound").innerHTML = game.currentRound + 1;
+  //updateScoreboard();
 }
 
 function searchForImages(startIndex){
@@ -205,9 +226,10 @@ function shuffle(array) {
 
 class GameState{
 
-  constructor () {
+  constructor (player) {
     this.activePlayer = 0;
     this.currentRound = 0;
+    this.amountPlayer = player;
   }
 
   nextPlayer(){
