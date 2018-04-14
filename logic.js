@@ -135,6 +135,31 @@ function updateDisplayGameProgress(){
   //updateScoreboard();
 }
 
+function collectedImages(gridSize){
+  //round up the Gridsize
+  var rounded = Math.ceil((gridSize+1)/10)*10;
+  var iterations = (rounded/10);
+  var links = [];
+  var startindex = 1;
+  for (var i = 0; i < iterations; i++) {
+    var results = searchForImages(startindex);
+    links.concat(results);
+    console.log(i);
+    console.log(startindex);
+    startindex += 10;
+  }
+
+  console.log(links);
+  /*
+  var test = searchForImages(1);
+  $(document).ajaxComplete(function() {
+    console.log("test:");
+    console.log(test);
+  });
+  */
+  return links;
+}
+
 function searchForImages(startIndex){
 
   var searchType = "&searchType=image";
@@ -150,12 +175,47 @@ function searchForImages(startIndex){
       for (var i = 0; i < data.items.length; i++) {
         results[i] = data.items[i].link;
       }
+      //console.log(results);
       return results;
     }
   });
-
+  //console.log(results);
+  $(document).ajaxComplete(function() {
+    return results;
+  });
 }
 
+function getImages(startIndex, iterations, test){
+  // iterations = 1 -> 20 results will be returned
+  var searchType = "&searchType=image";
+  var start = "&start=" + String(startIndex);
+  var input = document.getElementById("searchterm").value;
+  var url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCQcUbvvePw13aqQhlFm_4SAa7qToWMTB4&cx=010254913791562954874:fjogwmwaykw&q=" + input + searchType + start;
+  var results = [];
+
+  jQuery.ajax({
+    url: url,
+    method: "GET",
+    success: function(data){
+      for (var i = 0; i < data.items.length; i++) {
+        results[i] = data.items[i].link;
+      }
+
+      test = test.concat(results);
+
+      if (iterations == 0) {
+        console.log(test);
+      }
+      else {
+        // new call of the function
+        startIndex += 10;
+        iterations--;
+        getImages(startIndex, iterations, test);
+      }
+
+    }
+  });
+}
 
 // Create the Grid
 function createGrid(){
