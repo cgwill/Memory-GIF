@@ -4,6 +4,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	</head>
 	<body>
+		<div id="container_utilities">
 		<div id="options">
 			<div id="selectPlayers">
 				<h2>Player</h2>
@@ -22,21 +23,14 @@
 				<select id="listSizeGrid">
 				</select>
 			</div>
-			<div>
-
-				<button onclick="startGame(urlArray)">Start Game</button>
+			<div id="container_search">
 				<input id="searchterm" type="text" placeholder="Searchterm" >
+				<button onclick="startGame(urlArray)">Start Game</button>
 				<button onclick="getImages(1,1,[])">Search IMG</button>
 			</div>
 		</div>
 		<div id="gameProgress">
 			<div>
-				<h2>Clicks Left</h2>
-				<span id="clicksleft"></span>
-				<h2>Active Player</h2>
-				<span id="activePlayer"></span>
-				<h2>Current Round</h2>
-				<span id="currentRound"></span>
 				<div id="div_scoreboard">
 					<table id="table_scoreboard">
 						<caption>Scoreboard</caption>
@@ -50,9 +44,15 @@
 						</tbody>
 					</table>
 				</div>
+				<h2>Clicks Left</h2>
+				<span id="clicksleft"></span>
+				<h2>Active Player</h2>
+				<span id="activePlayer"></span>
+				<h2>Current Round</h2>
+				<span id="currentRound"></span>
 			</div>
-
 		</div>
+	</div>
 		<div id="playArea">
 		</div>
 		<div id="div_slider">

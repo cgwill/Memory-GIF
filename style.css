@@ -23,3 +23,46 @@ div.image:hover {
 #sizeSlider {
   width: 100%;
 }
+
+#container_utilities {
+  float:left;
+  width: 30%;
+}
+
+#selectPlayers {
+  width: 50%;
+  float: left;
+}
+
+#selectSizeGrid{
+  width: 50%;
+  float: left;
+}
+
+#container_search{
+  float: left;
+  width: 100%;
+  margin-top: 20px;
+}
+
+#options{
+  float: left;
+}
+
+#gameProgress{
+  float: left;
+  width: 100%;
+  margin-top: 20px;
+}
+
+#div_scoreboard{
+  width: 90%;
+  margin-left: 5%;
+
+}
+
+#playArea{
+  float:left;
+  width: 70%;
+
+}
