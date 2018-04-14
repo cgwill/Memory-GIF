@@ -80,6 +80,17 @@ function initScoreboard(){
 
 }
 
+function updateImageSize(){
+  var sizeValue = document.getElementById("sizeSlider").value;
+  var images = document.getElementsByClassName("image");
+
+  for (var i = 0; i < images.length; i++) {
+    images[i].style.width = String(sizeValue) + "%";
+    images[i].style.height = String(sizeValue) + "%";
+  }
+
+}
+
 // new Round
 function showImage(e){
   // Wieviele Clicks hat der Spieler noch?
