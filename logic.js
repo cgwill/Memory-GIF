@@ -38,9 +38,10 @@ function startGame(test){
       players[i] = new Player(i);
     }
     //Display Game State in the Progress Window
-    updateDisplayGameProgress();
     deleteScoreboard();
     initScoreboard();
+    updateDisplayGameProgress();
+
   }
 }
 
@@ -62,6 +63,8 @@ function initScoreboard(){
   for (var i = 0; i < game.amountPlayer; i++) {
 
     var row = document.createElement("tr");
+    row.id = "tr_player_" + String(i);
+    console.log(row.id);
     //var place = document.createElement("td");
     var player = document.createElement("td");
     var score = document.createElement("td");
@@ -135,9 +138,9 @@ function showImage(e){
     // Update die letzte gedrückte Karte
     card_id_last_checked = e.id;
     // Update the UI
-    updateDisplayGameProgress();
     deleteScoreboard();
     initScoreboard();
+    updateDisplayGameProgress();
   }
 }
 
@@ -145,6 +148,8 @@ function updateDisplayGameProgress(){
   document.getElementById("activePlayer").innerHTML = game.activePlayer + 1;
   document.getElementById("currentRound").innerHTML = game.currentRound + 1;
   document.getElementById("clicksleft").innerHTML = players[game.activePlayer].getClicksLeft();;
+  var element = "tr_player_" + String(game.activePlayer);
+  document.getElementById(element).style.backgroundColor = "yellow";
   //updateScoreboard();
 }
 
@@ -338,7 +343,6 @@ class Player{
     return this.score;
   }
 }
-
 
 class MemoryImage {
 
