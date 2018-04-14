@@ -145,8 +145,8 @@ function showImage(e){
 }
 
 function updateDisplayGameProgress(){
-  document.getElementById("activePlayer").innerHTML = game.activePlayer + 1;
-  document.getElementById("currentRound").innerHTML = game.currentRound + 1;
+  //document.getElementById("activePlayer").innerHTML = game.activePlayer + 1;
+  //document.getElementById("currentRound").innerHTML = game.currentRound + 1;
   document.getElementById("clicksleft").innerHTML = players[game.activePlayer].getClicksLeft();;
   var element = "tr_player_" + String(game.activePlayer);
   document.getElementById(element).style.backgroundColor = "yellow";

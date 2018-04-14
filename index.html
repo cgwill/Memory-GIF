@@ -43,19 +43,22 @@
 						</tbody>
 					</table>
 				</div>
+				<div id="div_clicks">
 				<h2>Clicks Left</h2>
 				<span id="clicksleft"></span>
-				<h2>Active Player</h2>
+				<!--- <h2>Active Player</h2>
 				<span id="activePlayer"></span>
 				<h2>Current Round</h2>
-				<span id="currentRound"></span>
+				<span id="currentRound"></span> --->
+				<div id="div_slider">
+					<h2>Size Images</h2>
+					<input type="range" min="5" max="50" value="20" id="sizeSlider" oninput="updateImageSize()">
+				</div>
+				</div>
 			</div>
 		</div>
 	</div>
 		<div id="playArea">
-		</div>
-		<div id="div_slider">
-			<input type="range" min="5" max="50" value="20" id="sizeSlider" oninput="updateImageSize()">
 		</div>
 
 		<script src="logic.js">

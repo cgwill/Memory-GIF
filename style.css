@@ -39,11 +39,10 @@ div.image:hover {
 }
 
 #div_slider {
-  position: fixed;
-  bottom: 10px;
-  right: 10;
-  width: 200px;
-  border: 3px solid black;
+  /*position: fixed;
+  bottom: 10px; */
+  margin: auto;
+  width: 90%;
 }
 
 #sizeSlider {
@@ -51,8 +50,10 @@ div.image:hover {
 }
 
 #container_utilities {
+  margin-left: 20px;
+  margin-right: 20px;
   float:left;
-  width: 30%;
+  width: 220px;
 }
 
 #selectPlayers {
@@ -72,6 +73,7 @@ div.image:hover {
 }
 
 #options{
+  display: block;
   float: left;
 }
 
@@ -79,12 +81,6 @@ div.image:hover {
   float: left;
   width: 100%;
   margin-top: 20px;
-}
-
-#div_scoreboard{
-  width: 90%;
-  margin-left: 5%;
-
 }
 
 #playArea{
@@ -97,6 +93,15 @@ div.image:hover {
   width: 100%;
   height: 170px;
   text-align: center;
+}
+
+#div_clicks h2, span{
+  text-align: center;
+}
+
+#div_clicks span{
+  display: block;
+  width: 100%;
 }
 
 #div_head h1{
