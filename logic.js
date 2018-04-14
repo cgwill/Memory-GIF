@@ -262,7 +262,7 @@ function createGrid(links){
   // Add the click event
   container.addEventListener("click", function(e){
 
-    if (e.target.tagName == "DIV") {
+    if (e.target.tagName == "DIV" && e.target.className == "image") {
       showImage(e.target);
     }
 
