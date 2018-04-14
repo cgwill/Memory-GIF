@@ -117,6 +117,7 @@ function showImage(e){
         }, 1000);
         players[game.activePlayer].updateClicksLeft();
         game.nextPlayer();
+        players[game.activePlayer].setClicksLeft(2);
       }
     }
 
@@ -132,32 +133,8 @@ function showImage(e){
 function updateDisplayGameProgress(){
   document.getElementById("activePlayer").innerHTML = game.activePlayer + 1;
   document.getElementById("currentRound").innerHTML = game.currentRound + 1;
+  document.getElementById("clicksleft").innerHTML = players[game.activePlayer].getClicksLeft();;
   //updateScoreboard();
-}
-
-function collectedImages(gridSize){
-  //round up the Gridsize
-  var rounded = Math.ceil((gridSize+1)/10)*10;
-  var iterations = (rounded/10);
-  var links = [];
-  var startindex = 1;
-  for (var i = 0; i < iterations; i++) {
-    var results = searchForImages(startindex);
-    links.concat(results);
-    console.log(i);
-    console.log(startindex);
-    startindex += 10;
-  }
-
-  console.log(links);
-  /*
-  var test = searchForImages(1);
-  $(document).ajaxComplete(function() {
-    console.log("test:");
-    console.log(test);
-  });
-  */
-  return links;
 }
 
 function searchForImages(startIndex){
