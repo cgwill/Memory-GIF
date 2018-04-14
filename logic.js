@@ -174,36 +174,42 @@ function searchForImages(startIndex){
 }
 
 function getImages(startIndex, iterations, links){
-  // iterations = 1 -> 20 results will be returned
-  var searchType = "&searchType=image";
-  var start = "&start=" + String(startIndex);
   var input = document.getElementById("searchterm").value;
-  var url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCQcUbvvePw13aqQhlFm_4SAa7qToWMTB4&cx=010254913791562954874:fjogwmwaykw&q=" + input + searchType + start;
-  var results = [];
 
-  jQuery.ajax({
-    url: url,
-    method: "GET",
-    success: function(data){
-      for (var i = 0; i < data.items.length; i++) {
-        results[i] = data.items[i].link;
+  if (input == "") {
+    alert("Insert something into searchfield");
+  }
+  else {
+    // iterations = 1 -> 20 results will be returned
+    var searchType = "&searchType=image";
+    var start = "&start=" + String(startIndex);
+    var url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCQcUbvvePw13aqQhlFm_4SAa7qToWMTB4&cx=010254913791562954874:fjogwmwaykw&q=" + input + searchType + start;
+    var results = [];
+
+    jQuery.ajax({
+      url: url,
+      method: "GET",
+      success: function(data){
+        for (var i = 0; i < data.items.length; i++) {
+          results[i] = data.items[i].link;
+        }
+
+        links = links.concat(results);
+
+        if (iterations == 0) {
+          console.log(links);
+          startGame(links);
+        }
+        else {
+          // new call of the function
+          startIndex += 10;
+          iterations--;
+          getImages(startIndex, iterations, links);
+        }
+
       }
-
-      links = links.concat(results);
-
-      if (iterations == 0) {
-        console.log(links);
-        startGame(links);
-      }
-      else {
-        // new call of the function
-        startIndex += 10;
-        iterations--;
-        getImages(startIndex, iterations, links);
-      }
-
-    }
-  });
+    });
+  }
 }
 
 // Create the Grid
