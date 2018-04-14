@@ -22,9 +22,9 @@ for (i=0; i<(optionsGridSize * stepSize); i = i + stepSize) {
 }
 
 // Start the Game
-function startGame(){
+function startGame(test){
   // Check if a Grid has been created
-  createGrid();
+  createGrid(test);
   if(document.getElementById("playArea").children.length === 0){
     alert("please select grid size");
   }
@@ -185,7 +185,7 @@ function searchForImages(startIndex){
   });
 }
 
-function getImages(startIndex, iterations, test){
+function getImages(startIndex, iterations, links){
   // iterations = 1 -> 20 results will be returned
   var searchType = "&searchType=image";
   var start = "&start=" + String(startIndex);
@@ -201,16 +201,17 @@ function getImages(startIndex, iterations, test){
         results[i] = data.items[i].link;
       }
 
-      test = test.concat(results);
+      links = links.concat(results);
 
       if (iterations == 0) {
-        console.log(test);
+        console.log(links);
+        startGame(links);
       }
       else {
         // new call of the function
         startIndex += 10;
         iterations--;
-        getImages(startIndex, iterations, test);
+        getImages(startIndex, iterations, links);
       }
 
     }
@@ -218,7 +219,7 @@ function getImages(startIndex, iterations, test){
 }
 
 // Create the Grid
-function createGrid(){
+function createGrid(links){
   // Variables
   var dropdown = document.getElementById("listSizeGrid");
   var gridSize = dropdown.options[dropdown.selectedIndex].value;
@@ -232,7 +233,7 @@ function createGrid(){
   // Fill with new Images
   for (i=0; i<gridSize; i++){
     var image = document.createElement("div");
-    memoryArray[i] = createImages(i,urlArray);
+    memoryArray[i] = createImages(i,links);
     //image.style.backgroundImage = "url('" + memoryArray[i].url + "')";
     //image.style.backgroundSize = "cover";
     // Debugging
