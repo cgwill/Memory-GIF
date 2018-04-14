@@ -1,9 +1,14 @@
 <html>
 	<head>
+		<link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Gugi' rel='stylesheet'>
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	</head>
 	<body>
+		<div id="div_head">
+		<h1><span id="godown">go down </span> <span id="memory">MEMORY</span> <span id="lane">lane</span></h1>
+		</div>
 		<div id="container_utilities">
 		<div id="options">
 			<div id="selectPlayers">
@@ -33,13 +38,7 @@
 			<div>
 				<div id="div_scoreboard">
 					<table id="table_scoreboard">
-						<caption>Scoreboard</caption>
-						<thead>
-							<tr>
-								<th>Player</th>
-								<th>Score</th>
-							</tr>
-						</thead>
+						<caption><h2>Scoreboard</h2></caption>
 						<tbody id="tbody_scoreboard">
 						</tbody>
 					</table>
