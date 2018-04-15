@@ -5,12 +5,9 @@ var stepSize = 2;
 var optionsGridSize = 100;
 var game;
 var players = [];
-var urlArray = ["https://steemit-production-imageproxy-thumbnail.s3.amazonaws.com/U5dr76Z7jgENR79hQHHLM3fCFPQrg1C_1680x8400",
-"https://images.pexels.com/photos/126407/pexels-photo-126407.jpeg?auto=compress&cs=tinysrgb&h=350",
-"https://metrouk2.files.wordpress.com/2017/11/capture16.png?w=748&h=706&crop=1",
-"http://r.ddmcdn.com/s_f/o_1/cx_0/cy_157/cw_1327/ch_1327/w_720/APL/uploads/2013/01/smart-cat-article.jpg"];
 var pair_id_last_checked;
 var card_id_last_checked;
+
 
 // Create Dropdown Menu for Grid Size
 var i;
@@ -79,10 +76,26 @@ function updateImageSize(){
 function updateDisplayGameProgress(){
   //document.getElementById("activePlayer").innerHTML = game.activePlayer + 1;
   //document.getElementById("currentRound").innerHTML = game.currentRound + 1;
-  document.getElementById("clicksleft").innerHTML = players[game.activePlayer].getClicksLeft();;
+  //document.getElementById("clicksleft").innerHTML = players[game.activePlayer].getClicksLeft();;
   var element = "tr_player_" + String(game.activePlayer);
   document.getElementById(element).style.backgroundColor = "yellow";
   //updateScoreboard();
+}
+
+function toggleUI(){
+
+  var options_display = document.getElementById("options").style.display;
+
+
+  if (options_display == "block") {
+    document.getElementById("gameProgress").style.display = "block";
+    document.getElementById("options").style.display = "none";
+  }
+  else {
+    document.getElementById("gameProgress").style.display = "none";
+    document.getElementById("options").style.display = "block";
+  }
+
 }
 
 function searchForImages(startIndex){
@@ -112,7 +125,7 @@ function searchForImages(startIndex){
 
 function prepareGame(){
   var searchMode = document.getElementById("list_searchmode").value;
-  
+
   switch (searchMode) {
     case "gif":
       getGIF();
@@ -123,6 +136,8 @@ function prepareGame(){
     default:
       break;
   }
+
+  toggleUI();
 }
 
 function getGIF(){
@@ -138,14 +153,13 @@ function getGIF(){
     url: url,
     method: "GET",
     success: function(data){
-      //var test = JSON.parse(data);
-      console.log(data);
+      //console.log(data);
       var links = [];
       for (var i = 0; i < data.results.length; i++) {
         links[i] = data.results[i].media[0].mediumgif.url;
       }
       startGame(links);
-      console.log(links);
+      //console.log(links);
     }
   });
 }

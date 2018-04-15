@@ -10,7 +10,7 @@
 		<h1><span id="godown">go down </span> <span id="memory">MEMORY</span> <span id="lane">lane</span></h1>
 		</div>
 		<div id="container_utilities">
-		<div id="options">
+		<div id="options" style="display:block">
 			<div id="selectPlayers">
 				<h2>Player</h2>
 				<select id="players">
@@ -37,7 +37,7 @@
 				<button onclick="prepareGame()">Start Game</button>
 			</div>
 		</div>
-		<div id="gameProgress">
+		<div id="gameProgress" style="display:none">
 			<div>
 				<div id="div_scoreboard">
 					<table id="table_scoreboard">
@@ -46,10 +46,10 @@
 						</tbody>
 					</table>
 				</div>
-				<div id="div_clicks">
+				<!--- <div id="div_clicks">
 				<h2>Clicks Left</h2>
 				<span id="clicksleft"></span>
-				<!--- <h2>Active Player</h2>
+				<h2>Active Player</h2>
 				<span id="activePlayer"></span>
 				<h2>Current Round</h2>
 				<span id="currentRound"></span> --->
@@ -63,7 +63,6 @@
 	</div>
 		<div id="playArea">
 		</div>
-
 		<script src="logic.js">
 		</script>
 	</body>
