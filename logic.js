@@ -178,6 +178,29 @@ function searchForImages(startIndex){
   });
 }
 
+function getGIF(){
+
+  var search_term = "mind blown";
+  var apikey = "PZB8IP2K7Y94";
+
+  var url = "https://api.tenor.com/v1/search?tag=" + search_term + "&key=" +
+            apikey;
+
+  jQuery.ajax({
+    url: url,
+    method: "GET",
+    success: function(data){
+      //var test = JSON.parse(data);
+      console.log(data);
+      var links = [];
+      for (var i = 0; i < data.results.length; i++) {
+        links[i] = data.results[i].media[0].mediumgif.url;
+      }
+      console.log(links);
+    }
+  });
+}
+
 function getImages(startIndex, iterations, links){
   var input = document.getElementById("searchterm").value;
 
