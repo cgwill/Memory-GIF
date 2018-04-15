@@ -110,6 +110,21 @@ function searchForImages(startIndex){
   });
 }
 
+function prepareGame(){
+  var searchMode = document.getElementById("list_searchmode").value;
+  
+  switch (searchMode) {
+    case "gif":
+      getGIF();
+      break;
+    case "google":
+      getImages(1,1,[]);
+      break;
+    default:
+      break;
+  }
+}
+
 function getGIF(){
 
   var search_term = document.getElementById("searchterm").value;

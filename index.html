@@ -29,10 +29,12 @@
 				</select>
 			</div>
 			<div id="container_search">
+				<select id="list_searchmode">
+					<option value="gif">GIF</option>
+					<option value="google">Images</option>
+				</select>
 				<input id="searchterm" value="cat" type="text" placeholder="Searchterm" >
-				<button onclick="startGame(urlArray)">Start Game</button>
-				<button onclick="getImages(1,1,[])">Search IMG</button>
-				<button onclick="getGIF()">GIF</button>
+				<button onclick="prepareGame()">Start Game</button>
 			</div>
 		</div>
 		<div id="gameProgress">
