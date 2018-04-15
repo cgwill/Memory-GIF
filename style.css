@@ -65,6 +65,8 @@ img.gif {
   margin-right: 20px;
   float:left;
   width: 220px;
+  background-color: lightslategrey;
+  padding: 20px;
 }
 
 #selectPlayers {
@@ -80,6 +82,15 @@ img.gif {
 #selectMode {
   width: 32%;
   float: left;
+}
+
+#div_newGame {
+  margin-top: 25px;
+}
+
+#container_start {
+  float: left;
+  width: 100%;
 }
 
 #container_search{

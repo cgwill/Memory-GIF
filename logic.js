@@ -340,6 +340,11 @@ function showImage(e){
   }
 }
 
+function newGame() {
+  toggleUI();
+  deleteGrid();
+}
+
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
