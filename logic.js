@@ -112,11 +112,12 @@ function searchForImages(startIndex){
 
 function getGIF(){
 
-  var search_term = "mind blown";
+  var search_term = document.getElementById("searchterm").value;
   var apikey = "PZB8IP2K7Y94";
+  var ratio = "&ar_range=standard";
 
   var url = "https://api.tenor.com/v1/search?tag=" + search_term + "&key=" +
-            apikey;
+            apikey + ratio;
 
   jQuery.ajax({
     url: url,
@@ -128,6 +129,7 @@ function getGIF(){
       for (var i = 0; i < data.results.length; i++) {
         links[i] = data.results[i].media[0].mediumgif.url;
       }
+      startGame(links);
       console.log(links);
     }
   });
@@ -222,12 +224,14 @@ function createGrid(links){
     gif.style.display = "none";
 
     // Debugging
+    /*
     var debugTextCardId = document.createElement("h2");
     debugTextCardId.innerHTML = memoryArray[i].card_id;
     var debugTextPairId = document.createElement("h2");
     debugTextPairId.innerHTML = memoryArray[i].pair_id;
     image.appendChild(debugTextCardId);
     image.appendChild(debugTextPairId);
+    */
     //
 
     image.appendChild(gif);
@@ -265,8 +269,7 @@ function showImage(e){
     // Die Karte aufdecken
     //e.style.backgroundImage = "url('" + memoryArray[e.id].url + "')";
     //e.style.backgroundSize = "cover";
-    console.log(e.childNodes);
-    e.childNodes[2].style.display = "block";
+    e.childNodes[0].style.display = "block";
     // Noch beide Clicks übrig?
     if (clicksLeft == 2) {
       // Die last pair_id updaten
@@ -290,8 +293,8 @@ function showImage(e){
       //NICHT das richtige Pair gefunden
       else {
         setTimeout(function(){
-          e.childNodes[2].style.display = "none";
-          lastimage.childNodes[2].style.display = "none";
+          e.childNodes[0].style.display = "none";
+          lastimage.childNodes[0].style.display = "none";
         }, 1000);
         players[game.activePlayer].updateClicksLeft();
         game.nextPlayer();
