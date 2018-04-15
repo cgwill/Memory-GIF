@@ -38,6 +38,11 @@ div.image:hover {
     float: left;
 }
 
+img.gif {
+  max-width: 100%;
+  height: auto;
+}
+
 #div_slider {
   /*position: fixed;
   bottom: 10px; */
