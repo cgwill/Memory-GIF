@@ -8,6 +8,7 @@ button, select, option, input, tr, td, th {
 
 h2{
   font-weight: normal;
+  text-align: center;
 }
 
 table{
@@ -51,6 +52,7 @@ img.gif {
   /*position: fixed;
   bottom: 10px; */
   margin: auto;
+  margin-top: 60px;
   width: 90%;
 }
 
@@ -66,19 +68,24 @@ img.gif {
 }
 
 #selectPlayers {
-  width: 50%;
+  width: 32%;
   float: left;
 }
 
 #selectSizeGrid{
-  width: 50%;
+  width: 32%;
+  float: left;
+}
+
+#selectMode {
+  width: 32%;
   float: left;
 }
 
 #container_search{
   float: left;
   width: 100%;
-  margin-top: 20px;
+
 }
 
 #options{

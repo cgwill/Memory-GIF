@@ -17,7 +17,7 @@ for (i=0; i<(optionsGridSize * stepSize); i = i + stepSize) {
   op.value = i;
   op.text = i;
   // Set default value
-  if (counter == 4) {
+  if (counter == 10) {
     op.setAttribute("selected", "selected");
   }
   //

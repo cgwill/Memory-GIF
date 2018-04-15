@@ -11,29 +11,37 @@
 		</div>
 		<div id="container_utilities">
 		<div id="options" style="display:block">
+			<h2>1. Adjust Settings</h2>
 			<div id="selectPlayers">
-				<h2>Player</h2>
+				<h3>Player</h3>
 				<select id="players">
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
-					<option value="4">4</option>
+					<option selected value="4">4</option>
 					<option value="5">5</option>
 					<option value="6">6</option>
 					<option value="7">7</option>
 				</select>
 			</div>
 			<div id="selectSizeGrid">
-				<h2>Grid Size</h2>
+				<h3>Size</h3>
 				<select id="listSizeGrid">
 				</select>
 			</div>
+			<div id="selectMode">
+			<h3>Mode</h3>
+			<select id="list_searchmode">
+				<option value="gif">GIF</option>
+				<option value="google">Images</option>
+			</select>
+			</div>
 			<div id="container_search">
-				<select id="list_searchmode">
-					<option value="gif">GIF</option>
-					<option value="google">Images</option>
-				</select>
+				<h2>2. Enter Keyword</h2>
 				<input id="searchterm" value="cat" type="text" placeholder="Searchterm" >
+			</div>
+			<div id="container_start">
+				<h2>3. Press Button</h2>
 				<button onclick="prepareGame()">Start Game</button>
 			</div>
 		</div>
