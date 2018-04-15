@@ -21,30 +21,6 @@ for (i=0; i<(optionsGridSize * stepSize); i = i + stepSize) {
   listSizeGrid.options.add(op);
 }
 
-// Start the Game
-function startGame(test){
-  // Check if a Grid has been created
-  createGrid(test);
-  if(document.getElementById("playArea").children.length === 0){
-    alert("please select grid size");
-  }
-  else{
-    // Game can be created
-    var i;
-    var dd_players = document.getElementById("players");
-    var amountPlayers = dd_players.options[dd_players.selectedIndex].value;
-    game = new GameState(amountPlayers);
-    for (i=0; i<amountPlayers; i++){
-      players[i] = new Player(i);
-    }
-    //Display Game State in the Progress Window
-    deleteScoreboard();
-    initScoreboard();
-    updateDisplayGameProgress();
-
-  }
-}
-
 function createImages(i,url){
     var card_id = i;
     var pair_id = Math.floor(i * 0.5);
@@ -64,8 +40,6 @@ function initScoreboard(){
 
     var row = document.createElement("tr");
     row.id = "tr_player_" + String(i);
-    console.log(row.id);
-    //var place = document.createElement("td");
     var player = document.createElement("td");
     var score = document.createElement("td");
 
@@ -94,7 +68,6 @@ function updateImageSize(){
 
 }
 
-// new Round
 function showImage(e){
   // Wieviele Clicks hat der Spieler noch?
   var clicksLeft = players[game.activePlayer].getClicksLeft();
@@ -240,6 +213,35 @@ function getImages(startIndex, iterations, links){
   }
 }
 
+// Start the Game
+function startGame(links){
+  deleteGrid(); //Delete previously created grid
+  createGrid(links);
+  // Check if a Grid has been created
+  if(document.getElementById("playArea").children.length === 0){
+    alert("please select grid size");
+  }
+  else{
+    // Game can be created
+    var i;
+    var dd_players = document.getElementById("players");
+    var amountPlayers = dd_players.options[dd_players.selectedIndex].value;
+    game = new GameState(amountPlayers);
+    for (i=0; i<amountPlayers; i++){
+      players[i] = new Player(i);
+    }
+    //Display Game State in the Progress Window
+    deleteScoreboard();
+    initScoreboard();
+    updateDisplayGameProgress();
+
+  }
+}
+
+function deleteGrid(){
+  $("#playArea").empty();
+}
+
 // Create the Grid
 function createGrid(links){
   // Variables
@@ -248,16 +250,11 @@ function createGrid(links){
   var container = document.getElementById("playArea");
   memoryArray = [gridSize];
   imagesArray = [gridSize];
-  var i;
   img_pair_id = [gridSize/2] // length is half of the amount of the images in the grid -> gridSize
-  // Setup -> Delete previous images
-  $("#playArea").empty();
   // Fill with new Images
   for (i=0; i<gridSize; i++){
     var image = document.createElement("div");
     memoryArray[i] = createImages(i,links);
-    //image.style.backgroundImage = "url('" + memoryArray[i].url + "')";
-    //image.style.backgroundSize = "cover";
     // Debugging
     var debugTextCardId = document.createElement("h2");
     debugTextCardId.innerHTML = memoryArray[i].card_id;
