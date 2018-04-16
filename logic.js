@@ -2,7 +2,7 @@
 // Variables
 var listSizeGrid = document.getElementById("listSizeGrid");
 var stepSize = 2;
-var optionsGridSize = 100;
+var optionsGridSize = 11;
 var game;
 var players = [];
 var pair_id_last_checked;
